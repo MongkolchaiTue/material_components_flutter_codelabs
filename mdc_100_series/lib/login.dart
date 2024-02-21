@@ -22,12 +22,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // TODO: Add text editing controllers (101)
-  loginTextEditingController() {
-    return TextEditingController(
-      text: '',
-    );
-  }
+  final _usernameTextEditingController = TextEditingController();
+  final _passwordTextEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,23 +40,26 @@ class _LoginPageState extends State<LoginPage> {
                 const Text('SHRINE'),
               ],
             ),
-            const SizedBox(height: 120.0),
+            const SizedBox(height: 60.0),
             TextField(
-              controller: loginTextEditingController(),
+              controller: _usernameTextEditingController,
               decoration: const InputDecoration(
                 filled: true,
-                labelText: 'Username',
+                labelText: 'User name',
+                hintText: 'User name',
               ),
             ),
-            const SizedBox(height: 120.0),
+            const SizedBox(height: 40.0),
             TextField(
-              controller: loginTextEditingController(),
+              controller: _passwordTextEditingController,
               decoration: const InputDecoration(
                 filled: true,
                 labelText: 'Password',
+                hintText: 'Password',
               ),
               obscureText: true,
             ),
+            const SizedBox(height: 60.0),
             ElevatedButton(
               child: const Text('Login'),
               onPressed: () {
