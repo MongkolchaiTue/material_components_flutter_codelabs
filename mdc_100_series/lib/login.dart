@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   // TODO: Add text editing controllers (101)
   loginTextEditingController() {
     return TextEditingController(
-      text: 'Enter UserName',
+      text: '',
     );
   }
 
@@ -47,19 +47,26 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 120.0),
             TextField(
               controller: loginTextEditingController(),
-              onChanged: ((value) {
-                print('Text Change $value');
-              }),
+              decoration: const InputDecoration(
+                filled: true,
+                labelText: 'Username',
+              ),
+            ),
+            const SizedBox(height: 120.0),
+            TextField(
+              controller: loginTextEditingController(),
+              decoration: const InputDecoration(
+                filled: true,
+                labelText: 'Password',
+              ),
+              obscureText: true,
             ),
             ElevatedButton(
               child: const Text('Login'),
               onPressed: () {
                 print('login pressed');
               },
-            )
-            // TODO: Remove filled: true values (103)
-            // TODO: Add TextField widgets (101)
-            // TODO: Add button bar (101)
+            ),
           ],
         ),
       ),
