@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
+import 'package:shrine/home.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -22,8 +23,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _usernameTextEditingController = TextEditingController();
-  final _passwordTextEditingController = TextEditingController();
+  // TODO: Add text editing controllers (101)
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,18 +42,18 @@ class _LoginPageState extends State<LoginPage> {
                 const Text('SHRINE'),
               ],
             ),
-            const SizedBox(height: 60.0),
+            const SizedBox(height: 40.0),
             TextField(
-              controller: _usernameTextEditingController,
+              controller: _usernameController,
               decoration: const InputDecoration(
                 filled: true,
                 labelText: 'User name',
                 hintText: 'User name',
               ),
             ),
-            const SizedBox(height: 40.0),
+            const SizedBox(height: 20.0),
             TextField(
-              controller: _passwordTextEditingController,
+              controller: _passwordController,
               decoration: const InputDecoration(
                 filled: true,
                 labelText: 'Password',
@@ -59,12 +61,31 @@ class _LoginPageState extends State<LoginPage> {
               ),
               obscureText: true,
             ),
-            const SizedBox(height: 60.0),
-            ElevatedButton(
-              child: const Text('Login'),
-              onPressed: () {
-                print('login pressed');
-              },
+            const SizedBox(height: 30.0),
+            OverflowBar(
+              alignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  child: const Text('CANCEL'),
+                  onPressed: () {
+                    // TODO: Clear the text fields (101)
+                    _usernameController.clear();
+                    _passwordController.clear();
+                    // TODO: Show the next page (101)
+                    Navigator.pop(context);
+                  },
+                ),
+                ElevatedButton(
+                    child: const Text('NEXT'),
+                    onPressed: () {
+                      // TODO: Show the next page (101)
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomePage()),
+                      );
+                    }),
+              ],
             ),
           ],
         ),
