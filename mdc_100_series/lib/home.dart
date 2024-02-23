@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
+
+import 'model/product.dart';
+import 'model/products_repository.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         childAspectRatio: 8.0 / 9.0,
         // TODO: Build a grid of cards (102)
-        children: _buildGridCards(10),
+        children: _buildGridCards(context),
       ),
       // TODO: Set resizeToAvoidBottomInset (101)
       resizeToAvoidBottomInset: false,
@@ -76,31 +76,53 @@ class HomePage extends StatelessWidget {
 }
 
 // TODO: Make a collection of cards (102)
-List<Card> _buildGridCards(int count) {
-  List<Card> cards = List.generate(count, (int index) {
+// Replace this entire method
+List<Card> _buildGridCards(BuildContext context) {
+  List<Product> products = ProductsRepository.loadProducts(Category.all);
+  if (products.isEmpty) {
+    return const <Card>[];
+  }
+
+  return products.map((product) {
     return Card(
       clipBehavior: Clip.antiAlias,
+      // TODO: Adjust card heights (103)
       child: Column(
+        // TODO: Center items on the card (103)
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AspectRatio(
             aspectRatio: 18.0 / 11.0,
-            child: Image.asset('assets/diamond.png'),
+            child: Image.asset(
+              product.assetName,
+              package: product.assetPackage,
+              // TODO: Adjust the box size (102)
+              fit: BoxFit.fitWidth,
+            ),
           ),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
             child: Column(
+              // TODO: Align labels to the bottom and center (103)
+              crossAxisAlignment: CrossAxisAlignment.start,
+              // TODO: Change innermost Column (103)
               children: [
-                Text('Title'),
-                SizedBox(height: 8.0),
-                Text('Secondary Text'),
+                // TODO: Handle overflowing labels (103)
+                Text(
+                  product.name,
+                  style: Theme.of(context).textTheme.titleLarge,
+                  maxLines: 1,
+                ),
+                const SizedBox(height: 8.0),
+                Text(
+                  product.price.toStringAsFixed(2),
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
               ],
             ),
           ),
         ],
       ),
     );
-  });
-
-  return cards;
+  }).toList();
 }
