@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
               decoration: const InputDecoration(
                 filled: true,
                 labelText: 'User name',
-                hintText: 'User name',
+                // hintText: 'User name',
               ),
             ),
             const SizedBox(height: 20.0),
@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
               decoration: const InputDecoration(
                 filled: true,
                 labelText: 'Password',
-                hintText: 'Password',
+                // hintText: 'Password',
               ),
               obscureText: true,
             ),

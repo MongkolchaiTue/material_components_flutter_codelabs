@@ -66,7 +66,30 @@ class HomePage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         childAspectRatio: 8.0 / 9.0,
         // TODO: Build a grid of cards (102)
-        children: <Widget>[Card()],
+        children: [
+          Card(
+            clipBehavior: Clip.antiAlias,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AspectRatio(
+                  aspectRatio: 18.0 / 11.0,
+                  child: Image.asset('assets/diamond.png'),
+                ),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                  child: Column(
+                    children: [
+                      Text('Title'),
+                      SizedBox(height: 8.0),
+                      Text('Secondary Text'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
       // TODO: Set resizeToAvoidBottomInset (101)
       resizeToAvoidBottomInset: false,
