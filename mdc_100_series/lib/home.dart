@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'model/product.dart';
 import 'model/products_repository.dart';
@@ -79,9 +80,14 @@ class HomePage extends StatelessWidget {
 // Replace this entire method
 List<Card> _buildGridCards(BuildContext context) {
   List<Product> products = ProductsRepository.loadProducts(Category.all);
+
   if (products.isEmpty) {
     return const <Card>[];
   }
+
+  final ThemeData theme = Theme.of(context);
+  final NumberFormat formatter = NumberFormat.simpleCurrency(
+      locale: Localizations.localeOf(context).toString());
 
   return products.map((product) {
     return Card(
@@ -110,13 +116,13 @@ List<Card> _buildGridCards(BuildContext context) {
                 // TODO: Handle overflowing labels (103)
                 Text(
                   product.name,
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: theme.textTheme.titleLarge,
                   maxLines: 1,
                 ),
                 const SizedBox(height: 8.0),
                 Text(
-                  product.price.toStringAsFixed(2),
-                  style: Theme.of(context).textTheme.titleSmall,
+                  formatter.format(product.price),
+                  style: theme.textTheme.titleSmall,
                 ),
               ],
             ),
