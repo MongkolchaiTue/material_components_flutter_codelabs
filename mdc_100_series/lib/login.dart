@@ -14,6 +14,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:shrine/home.dart';
+import 'colors.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -29,6 +30,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -39,14 +42,18 @@ class _LoginPageState extends State<LoginPage> {
               children: <Widget>[
                 Image.asset('assets/diamond.png'),
                 const SizedBox(height: 16.0),
-                const Text('SHRINE'),
+                Text(
+                  'SHRINE',
+                  style: theme.textTheme.headlineSmall,
+                ),
               ],
             ),
             const SizedBox(height: 40.0),
+            // Remove filled: true values (103)
             TextField(
               controller: _usernameController,
               decoration: const InputDecoration(
-                filled: true,
+                //filled: true,
                 labelText: 'User name',
                 // hintText: 'User name',
               ),
@@ -55,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
             TextField(
               controller: _passwordController,
               decoration: const InputDecoration(
-                filled: true,
+                //filled: true,
                 labelText: 'Password',
                 // hintText: 'Password',
               ),
@@ -66,25 +73,41 @@ class _LoginPageState extends State<LoginPage> {
               alignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                  child: const Text('CANCEL'),
+                  child: const Text(
+                    'CANCEL',
+                  ),
+                  style: TextButton.styleFrom(
+                    foregroundColor: kShrineBrown900,
+                    shape: const BeveledRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                    ),
+                  ),
                   onPressed: () {
                     // TODO: Clear the text fields (101)
                     _usernameController.clear();
                     _passwordController.clear();
                     // TODO: Show the next page (101)
-                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomePage()),
+                    );
                   },
                 ),
                 ElevatedButton(
-                    child: const Text('NEXT'),
-                    onPressed: () {
-                      // TODO: Show the next page (101)
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomePage()),
-                      );
-                    }),
+                  child: const Text('NEXT'),
+                  onPressed: () {
+                    // TODO: Show the next page (101)
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: kShrineBrown900,
+                    backgroundColor: kShrinePink100,
+                    elevation: 8.0,
+                    shape: const BeveledRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                    ),
+                  ),
+                ),
               ],
             ),
           ],
