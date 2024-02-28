@@ -51,7 +51,6 @@ class ShrineApp extends StatelessWidget {
       },
       // TODO: Customize the theme (103)
       // theme: ThemeData.light(useMaterial3: true),
-      // TODO: Customize the theme (103)
       theme: _kShrineTheme, // New code
     );
   }
@@ -96,18 +95,27 @@ ThemeData _buildShrineTheme() {
       error: kShrineErrorRed,
     ),
     // TODO: Add the text themes (103)
-    // textTheme: _buildShrineTextTheme(base.textTheme),
-    scaffoldBackgroundColor: kShrineSurfaceWhite,
+    textTheme: _buildShrineTextTheme(base.textTheme),
     textSelectionTheme: const TextSelectionThemeData(
-      selectionColor: kShrinePurple,
+      selectionColor: kShrinePink100,
     ),
+
+    // scaffoldBackgroundColor: kShrineSurfaceWhite,
+    // textTheme: _buildShrineTextTheme(base.textTheme),
+    // textSelectionTheme: const TextSelectionThemeData(
+    //   selectionColor: kShrinePurple,
+    // ),
     appBarTheme: const AppBarTheme(
       foregroundColor: kShrineBrown900,
       backgroundColor: kShrinePink100,
     ),
+
+    // TODO: Decorate the inputs (103)
+    // inputDecorationTheme: const InputDecorationTheme(
+    //   border: OutlineInputBorder(),
+    // ),
     // TODO: Decorate the inputs (103)
     inputDecorationTheme: const InputDecorationTheme(
-      //border: OutlineInputBorder(),
       border: CutCornersBorder(),
       focusedBorder: CutCornersBorder(
         borderSide: BorderSide(
