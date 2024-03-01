@@ -22,9 +22,25 @@ import 'backdrop.dart'; // New code
 import 'model/product.dart'; // New code
 import 'supplemental/cut_corners_border.dart';
 
+import 'category_menu_page.dart';
+import 'model/product.dart';
+
 // TODO: Convert ShrineApp to stateful widget (104)
-class ShrineApp extends StatelessWidget {
+class ShrineApp extends StatefulWidget {
   const ShrineApp({Key? key}) : super(key: key);
+
+  @override
+  State<ShrineApp> createState() => _ShrineAppState();
+}
+
+class _ShrineAppState extends State<ShrineApp> {
+  Category _currentCategory = Category.all;
+
+  void _onCategoryTap(Category category) {
+    setState(() {
+      _currentCategory = category;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +52,18 @@ class ShrineApp extends StatelessWidget {
         // TODO: Change to a Backdrop with a HomePage frontLayer (104)
         '/': (BuildContext context) => Backdrop(
               // TODO: Make currentCategory field take _currentCategory (104)
-              currentCategory: Category.all,
+              currentCategory: _currentCategory,
               // TODO: Pass _currentCategory for frontLayer (104)
-              frontLayer: HomePage(),
+              // frontLayer: HomePage(),
+              // TODO: Pass _currentCategory for frontLayer (104)
+              frontLayer: HomePage(category: _currentCategory),
               // TODO: Change backLayer field value to CategoryMenuPage (104)
-              backLayer: Container(color: kShrinePink100),
-              frontTitle: Text('SHRINE'),
-              backTitle: Text('MENU'),
+              backLayer: CategoryMenuPage(
+                currentCategory: _currentCategory,
+                onCategoryTap: _onCategoryTap,
+              ),
+              frontTitle: const Text('SHRINE'),
+              backTitle: const Text('MENU'),
             ),
         // '/': (BuildContext context) => const HomePage(),
         // TODO: Make currentCategory field take _currentCategory (104)
@@ -89,42 +110,29 @@ ThemeData _buildShrineTheme() {
   final ThemeData base = ThemeData.light(useMaterial3: true);
   return base.copyWith(
     colorScheme: base.colorScheme.copyWith(
-      primary: kShrinePurple,
-      //onPrimary: kShrinePurple,
-      secondary: kShrinePurple,
+      primary: kShrinePink100,
+      onPrimary: kShrineBrown900,
+      secondary: kShrineBrown900,
       error: kShrineErrorRed,
     ),
-    // TODO: Add the text themes (103)
     textTheme: _buildShrineTextTheme(base.textTheme),
     textSelectionTheme: const TextSelectionThemeData(
       selectionColor: kShrinePink100,
     ),
-
-    // scaffoldBackgroundColor: kShrineSurfaceWhite,
-    // textTheme: _buildShrineTextTheme(base.textTheme),
-    // textSelectionTheme: const TextSelectionThemeData(
-    //   selectionColor: kShrinePurple,
-    // ),
     appBarTheme: const AppBarTheme(
       foregroundColor: kShrineBrown900,
       backgroundColor: kShrinePink100,
     ),
-
-    // TODO: Decorate the inputs (103)
-    // inputDecorationTheme: const InputDecorationTheme(
-    //   border: OutlineInputBorder(),
-    // ),
-    // TODO: Decorate the inputs (103)
     inputDecorationTheme: const InputDecorationTheme(
       border: CutCornersBorder(),
       focusedBorder: CutCornersBorder(
         borderSide: BorderSide(
           width: 2.0,
-          color: kShrinePurple,
+          color: kShrineBrown900,
         ),
       ),
       floatingLabelStyle: TextStyle(
-        color: kShrinePurple,
+        color: kShrineBrown900,
       ),
     ),
   );
